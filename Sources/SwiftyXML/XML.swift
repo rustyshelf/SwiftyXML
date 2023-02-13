@@ -185,6 +185,8 @@ open class XML {
     fileprivate var value:String?
     fileprivate var children:[XML] = []
     
+    public var indentCharacters = "\t"
+    
     public var xmlName:String {
         get { name }
         set { name = newValue }
@@ -565,7 +567,7 @@ extension XML {
     }
     
     private func getEndPart(numTabs:Int) -> String {
-        return String(repeating: "\t", count: numTabs) + "</\(name)>\n"
+        return String(repeating: indentCharacters, count: numTabs) + "</\(name)>\n"
     }
     
     private func getCombine(numTabs:Int) -> String {
@@ -575,7 +577,7 @@ extension XML {
     private func getDescription(numTabs:Int, closed:Bool) -> String {
         var attr = self.getAttributeString()
         attr = attr.isEmpty ? "" : attr
-        let tabs = String(repeating: "\t", count: numTabs)
+        let tabs = String(repeating: indentCharacters, count: numTabs)
         var valueString: String = ""
         if let v = self.value {
             valueString = v.trimmingCharacters(in: .whitespacesAndNewlines).escaped()
