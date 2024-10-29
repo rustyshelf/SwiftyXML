@@ -559,7 +559,10 @@ extension XML {
     }
     
     private func getAttributeString() -> String {
-        return self.attributes.map{ " \($0.0)=\"\($0.1.escaped())\"" }.joined()
+        return self.attributes
+            .sorted(by: { $0.key < $1.key })
+            .map{ " \($0.0)=\"\($0.1.escaped())\"" }
+            .joined()
     }
     
     private func getStartPart(numTabs:Int) -> String {
